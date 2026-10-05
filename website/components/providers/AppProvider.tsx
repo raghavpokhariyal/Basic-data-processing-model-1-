@@ -98,11 +98,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  // Compare against the router's pathname rather than window.location, so
+  // navigation also works where the page URL itself never changes.
+  const pathRef = useRef(pathname);
+  pathRef.current = pathname;
+
   const navigate = useCallback(
     (href: string) => {
-      const url = new URL(href, window.location.href);
-      const samePage = url.pathname === window.location.pathname;
-      if (samePage && url.hash) history.replaceState(null, '', url.hash);
+      const [rawPath, rawHash] = href.split('#');
+      const url = { pathname: rawPath || pathRef.current, hash: rawHash ? `#${rawHash}` : '' };
+      const samePage = url.pathname === pathRef.current;
+      if (samePage && url.hash) {
+        try {
+          history.replaceState(null, '', url.hash);
+        } catch {
+          /* history unavailable (sandboxed frame): the scroll still happens */
+        }
+      }
 
       if (prefersReducedMotion() || !curtainRef.current) {
         if (samePage) {
