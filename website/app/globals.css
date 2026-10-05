@@ -1,0 +1,348 @@
+@import 'tailwindcss';
+
+/* ────────────────────────────────────────────────────────── design tokens */
+
+@theme {
+  --color-ivory: #f5f0e8;
+  --color-ivory-deep: #ede5d8;
+  --color-paper: #fbf8f2;
+  --color-sand: #d8c3a5;
+  --color-sand-light: #e9dcc8;
+  --color-terracotta: #b5654a;
+  --color-terracotta-deep: #93492f;
+  --color-terracotta-light: #e0a68c;
+  --color-indigo: #2e3a59;
+  --color-indigo-deep: #1d2539;
+  --color-ink-muted: #565e78;
+  --color-brass: #b08d57;
+  --color-brass-light: #d1b483;
+
+  --ease-silk: cubic-bezier(0.65, 0.05, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --breakpoint-xs: 26rem;
+}
+
+@theme inline {
+  --font-serif: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-sans: var(--font-manrope), 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-deva: var(--font-tiro), 'Tiro Devanagari Hindi', serif;
+}
+
+/* Horizontal pinned layouts only when there is room and motion is welcome */
+@custom-variant pin (@media (min-width: 48rem) and (prefers-reduced-motion: no-preference));
+
+/* ──────────────────────────────────────────────────────────────── base */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--color-ivory);
+    color: var(--color-indigo);
+  }
+
+  body {
+    background: var(--color-ivory);
+    color: var(--color-indigo);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-terracotta-deep);
+    color: var(--color-ivory);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta-deep);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  [data-theme='dark'] :focus-visible {
+    outline-color: var(--color-brass-light);
+  }
+
+  img {
+    user-select: none;
+  }
+
+  [lang='hi'] {
+    font-family: var(--font-deva);
+    letter-spacing: 0;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────── utilities */
+
+/** Fluid page gutter: 16px on phones, growing with the viewport. */
+@utility container-x {
+  width: 100%;
+  max-width: 92rem;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 3.5rem);
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+@utility display-xl {
+  font-size: clamp(3.1rem, 9.2vw, 9.25rem);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+}
+
+@utility display-lg {
+  font-size: clamp(2.5rem, 6vw, 5.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+@utility display-md {
+  font-size: clamp(2rem, 4.2vw, 3.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+}
+
+/** Round (jharokha) arch: a semicircular head on a straight-sided frame. */
+@utility arch {
+  border-radius: 999px 999px 0 0;
+}
+
+/** Pointed Mughal arch via an objectBoundingBox clip-path (see ArchDefs). */
+@utility arch-mughal {
+  clip-path: url(#arch-mughal);
+}
+
+@utility arch-cusped {
+  clip-path: url(#arch-cusped);
+}
+
+/** Faint block-print buti pattern for warm section grounds. */
+@utility bg-blockprint {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='%23b5654a' fill-opacity='0.07'%3E%3Cpath d='M32 22c2.2 0 4 3.6 4 6s-1.8 4-4 4-4-1.6-4-4 1.8-6 4-6zm0 20c-2.2 0-4-3.6-4-6s1.8-4 4-4 4 1.6 4 4-1.8 6-4 6zm-10-10c0-2.2 3.6-4 6-4s4 1.8 4 4-1.6 4-4 4-6-1.8-6-4zm20 0c0 2.2-3.6 4-6 4s-4-1.8-4-4 1.6-4 4-4 6 1.8 6 4z'/%3E%3Ccircle cx='0' cy='0' r='2'/%3E%3Ccircle cx='64' cy='0' r='2'/%3E%3Ccircle cx='0' cy='64' r='2'/%3E%3Ccircle cx='64' cy='64' r='2'/%3E%3C/g%3E%3Cg fill='%232e3a59' fill-opacity='0.05'%3E%3Ccircle cx='32' cy='32' r='1.6'/%3E%3Ccircle cx='0' cy='32' r='1.2'/%3E%3Ccircle cx='64' cy='32' r='1.2'/%3E%3Ccircle cx='32' cy='0' r='1.2'/%3E%3Ccircle cx='32' cy='64' r='1.2'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 64px 64px;
+}
+
+@utility hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-brass) 15%, var(--color-brass) 85%, transparent);
+  opacity: 0.55;
+}
+
+/* ─────────────────────────────────────────────────────────── components */
+
+@layer components {
+  /* Soft paper grain over everything; a static tiled image keeps it cheap. */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    background-image: url('/textures/grain.webp');
+    background-size: 220px 220px;
+    opacity: 0.32;
+  }
+
+  /* Blur-to-sharp image loading */
+  .smart-img {
+    transition:
+      opacity 0.9s var(--ease-out-expo),
+      filter 1.1s var(--ease-out-expo),
+      transform 1.4s var(--ease-out-expo);
+  }
+  .smart-img[data-loaded='false'] {
+    opacity: 0;
+    filter: blur(18px);
+    transform: scale(1.04);
+  }
+
+  /* Header link underline */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+    transition: background-size 0.5s var(--ease-out-expo);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible,
+  .link-underline[aria-current='true'] {
+    background-size: 100% 1px;
+    background-position: 0% 100%;
+  }
+
+  /* Testimonial marquee */
+  .marquee-track {
+    animation: marquee var(--marquee-duration, 60s) linear infinite;
+  }
+  .marquee-track[data-direction='reverse'] {
+    animation-direction: reverse;
+  }
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .mandala-spin {
+    animation: spin 160s linear infinite;
+  }
+
+  /* Form fields */
+  .field {
+    position: relative;
+  }
+  .field-input {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid color-mix(in oklab, var(--color-indigo) 28%, transparent);
+    background: transparent;
+    padding: 1.5rem 0 0.55rem;
+    font-size: 1rem;
+    color: var(--color-indigo);
+    border-radius: 0;
+    transition: border-color 0.3s ease;
+    appearance: none;
+  }
+  .field-input:focus {
+    outline: none;
+    border-bottom-color: var(--color-terracotta-deep);
+    box-shadow: 0 1px 0 0 var(--color-terracotta-deep);
+  }
+  .field-input[aria-invalid='true'] {
+    border-bottom-color: #a33a2a;
+  }
+  .field-label {
+    position: absolute;
+    left: 0;
+    top: 1.45rem;
+    font-size: 1rem;
+    color: var(--color-ink-muted);
+    pointer-events: none;
+    transform-origin: left top;
+    transition:
+      transform 0.35s var(--ease-out-expo),
+      color 0.3s ease;
+  }
+  .field-input:focus + .field-label,
+  .field-input:not(:placeholder-shown) + .field-label,
+  .field-select + .field-label {
+    transform: translateY(-1.3rem) scale(0.78);
+    color: var(--color-terracotta-deep);
+  }
+  .field-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%232e3a59' stroke-width='1.4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.25rem center;
+    padding-right: 1.75rem;
+    cursor: pointer;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-2px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* Hide native cursor only while the custom cursor is active */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+html.has-cursor input,
+html.has-cursor textarea,
+html.has-cursor select {
+  cursor: text !important;
+}
+html.has-cursor select {
+  cursor: pointer !important;
+}
+
+/* Lock page while preloader / menu / lightbox are open */
+html.is-locked {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  .mandala-spin {
+    animation: none !important;
+  }
+}
