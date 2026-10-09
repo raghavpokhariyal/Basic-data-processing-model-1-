@@ -8,6 +8,7 @@ export const nav = [
   { label: 'About', href: '/#about' },
   { label: 'Services', href: '/#services' },
   { label: 'Process', href: '/#process' },
+  { label: 'In 3D', href: '/#explore' },
   { label: 'Work', href: '/#work' },
   { label: 'Furniture', href: '/#furniture' },
   { label: 'Contact', href: '/#contact' },
@@ -238,16 +239,75 @@ export const beforeAfter = {
 
 /* ───────────────────────────────────────────────────────────── furniture */
 
-export const featuredPiece = {
-  name: 'Jharokha Lounge Chair',
-  hindi: 'झरोखा',
-  text: 'Named for the overhanging windows of Rajasthani havelis. A turned-leg frame, an arched back of hand-woven cane and brass ferrules that age with you.',
-  specs: [
-    { label: 'Dimensions', value: 'W 72 × D 78 × H 92 cm' },
-    { label: 'Seat height', value: '42 cm' },
-    { label: 'Lead time', value: 'Made to order · 6–8 weeks' },
-  ],
-};
+/** Pieces shown in the live 3D viewer. `id` matches the procedural model. */
+export const furniturePieces = [
+  {
+    id: 'lounge',
+    name: 'Jharokha Lounge Chair',
+    hindi: 'झरोखा',
+    text: 'Named for the overhanging windows of Rajasthani havelis. A turned-leg frame, an arched back of hand-woven cane and brass ferrules that age with you.',
+    dims: 'W 72 × D 78 × H 92 cm',
+    poster: img.serviceFurniture,
+  },
+  {
+    id: 'dining',
+    name: 'Haveli Dining Chair',
+    hindi: 'हवेली',
+    text: 'A turned-leg sheesham frame, a hand-woven cane seat and a back cut as an arched jaali.',
+    dims: 'W 46 × D 48 × H 102 cm',
+    poster: img.productDiningChair,
+  },
+  {
+    id: 'charpai',
+    name: 'Charpai Daybed',
+    hindi: 'चारपाई',
+    text: 'Four lathe-turned legs and a top woven by hand in cotton niwar tape, made for long afternoons on the verandah.',
+    dims: 'L 190 × W 92 × H 44 cm',
+    poster: img.productCharpai,
+  },
+  {
+    id: 'chowki',
+    name: 'Baithak Chowki',
+    hindi: 'चौकी',
+    text: 'A low mango-wood table with turned legs and brass inlay, for floor seating and evening chai.',
+    dims: 'W 82 × D 82 × H 34 cm',
+    poster: img.productChowki,
+  },
+  {
+    id: 'console',
+    name: 'Jaali Console',
+    hindi: 'जाली',
+    text: 'Solid teak with twin doors cut as eight-point-star jaalis, so light and air move through.',
+    dims: 'W 135 × D 40 × H 80 cm',
+    poster: img.productConsole,
+  },
+  {
+    id: 'sideboard',
+    name: 'Reeded Sideboard',
+    hindi: 'अलमारी',
+    text: 'A mango-wood carcass with hand-shaped reeded doors and slim brass pulls.',
+    dims: 'W 180 × D 45 × H 78 cm',
+    poster: img.productSideboard,
+  },
+  {
+    id: 'jhoola',
+    name: 'Jhoola Swing',
+    hindi: 'झूला',
+    text: 'A sheesham swing bench with turned spindles, hung on brass chains from a beam or slab.',
+    dims: 'W 125 × D 58 cm · seat 48 cm',
+    poster: img.productJhoola,
+  },
+  {
+    id: 'mudha',
+    name: 'Mudha Stool',
+    hindi: 'मूढ़ा',
+    text: 'The village stool, remade: sarkanda reed bound with jute rope and topped with a cotton cushion.',
+    dims: 'Ø 40 × H 42 cm',
+    poster: img.productMudha,
+  },
+] as const;
+
+export type FurniturePieceId = (typeof furniturePieces)[number]['id'];
 
 export const products = [
   { name: 'Haveli Dining Chair', materials: 'Sheesham · cane seat · carved jaali back', image: img.productDiningChair },

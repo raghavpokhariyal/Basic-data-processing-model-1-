@@ -1,10 +1,9 @@
 import { SplitReveal, Reveal } from '@/components/motion/Reveal';
-import { ArchButton } from '@/components/ui/ArchButton';
 import { SmartImage } from '@/components/ui/SmartImage';
 import { StarRule } from '@/components/ornaments/Jaali';
 import { ChairViewer } from './ChairViewer';
 import { ProductCarousel } from './ProductCarousel';
-import { featuredPiece, materials } from '@/lib/content';
+import { materials } from '@/lib/content';
 
 export function Furniture() {
   return (
@@ -27,40 +26,13 @@ export function Furniture() {
           </div>
           <Reveal className="lg:col-span-4 lg:col-start-9">
             <p className="text-lg leading-relaxed text-ink-muted">
-              Every piece is drawn in our studio and made by hand in our workshop, in solid timber, cane and brass. Turn the chair below to see how it is put together.
+              Every piece is drawn in our studio and made by hand in our workshop, in solid timber, cane and brass. Turn any piece below, change its timber, or pull it apart to see how it is put together.
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-20 grid gap-14 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-7">
-            <ChairViewer />
-          </div>
-          <Reveal className="lg:col-span-4 lg:col-start-9">
-            <p data-reveal className="eyebrow text-terracotta-deep">
-              Featured piece
-            </p>
-            <h3 data-reveal className="mt-4 font-serif text-[clamp(2.4rem,4vw,3.6rem)] leading-none">
-              {featuredPiece.name}
-            </h3>
-            <p data-reveal lang="hi" aria-hidden="true" className="mt-2 text-2xl text-terracotta">
-              {featuredPiece.hindi}
-            </p>
-            <p data-reveal className="mt-6 text-lg leading-relaxed text-ink-muted">
-              {featuredPiece.text}
-            </p>
-            <dl data-reveal className="mt-8 divide-y divide-brass/30 border-y border-brass/30">
-              {featuredPiece.specs.map((s) => (
-                <div key={s.label} className="flex justify-between gap-6 py-3 text-sm">
-                  <dt className="text-ink-muted">{s.label}</dt>
-                  <dd className="text-right font-semibold">{s.value}</dd>
-                </div>
-              ))}
-            </dl>
-            <div data-reveal className="mt-10">
-              <ArchButton href="/#contact">Commission a piece</ArchButton>
-            </div>
-          </Reveal>
+        <div className="mt-20">
+          <ChairViewer />
         </div>
 
         <div className="mt-32">

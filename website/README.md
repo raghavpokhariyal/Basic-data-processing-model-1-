@@ -16,7 +16,7 @@ line art, a block-print ground and a paper-grain overlay.
 - **Next.js 16** (App Router, React 19, TypeScript), static pages plus one API route
 - **Tailwind CSS 4** (design tokens in `app/globals.css`)
 - **GSAP 3** with ScrollTrigger, SplitText and Flip, plus **Lenis** smooth scrolling
-- **Three.js** for the interactive furniture viewer, loaded only when it nears the viewport
+- **Three.js** for the 3D house explorer and furniture viewer. Every model, texture and light is procedural, so there is nothing to download, and three.js loads only when a viewer nears the viewport.
 - `next/font` (Cormorant Garamond, Manrope, Tiro Devanagari Hindi) and `next/image` (AVIF/WebP, blur previews)
 
 ## Getting started
@@ -53,8 +53,9 @@ Copy `.env.example` to `.env.local` and set:
 | About | Story, founder quote, arch and jaali image reveals, a rotating “years of craft” badge, animated counters (Indian digit grouping: “12 Lakh+”) |
 | Services | Three Mughal-arch cards with zoom-on-hover, slide-up descriptions, tilt and Devanagari labels (निर्माण, सज्जा, शिल्प). Each links to `/services/[slug]`. |
 | Process | Pinned horizontal timeline (Consultation → Design → Build → Furnish → Handover) with a progress rail; a vertical timeline on phones and for reduced motion |
+| The house in 3D | Interactive model of the villa: eye-level (true perspective), bird's eye, axonometric, plan and elevation views; section cuts with solid wall fills; a seven-step build sequence (foundation → landscape) with Play; an exploded layer diagram; a sun clock that moves shadows and jaali light; numbered design callouts |
 | Portfolio | Filterable masonry (GSAP Flip), fullscreen lightbox (keyboard, swipe, focus trap) and a before/after drag slider |
-| Furniture | Three.js chair viewer (rotate, pinch or Ctrl/⌘-scroll zoom, keyboard buttons, sheesham/teak/mango finish switcher), drag carousel, materials strip |
+| Furniture | Live 3D viewer for all eight workshop pieces (rotate, zoom, sheesham/teak/mango finishes) with an exploded view that names every part; drag carousel; materials strip |
 | Testimonials | Two opposing marquee rows that pause on hover or focus |
 | Contact | Validated enquiry form (Indian mobile check, ₹ budget ranges), WhatsApp click-to-chat, Google Map embed, address |
 | Footer | Jaali border, quick links, social icons, GSTIN/CIN placeholders |
@@ -93,7 +94,8 @@ lib/
   site.ts            brand, contact and registration settings
   content.ts         all copy and data
   images.ts          placeholder image manifest
-  three/             procedural chair model, textures and the viewer
+  house.ts           copy for the 3D explorer (layers, callouts, views)
+  three/             procedural models (villa, furniture, chair), textures, sky and the two viewers
 assets/placeholders/ placeholder renders (replace)
 ```
 

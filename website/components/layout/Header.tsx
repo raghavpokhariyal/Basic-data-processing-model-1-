@@ -16,6 +16,7 @@ const hindiFor: Record<string, string> = {
   About: 'परिचय',
   Services: 'सेवाएँ',
   Process: 'प्रक्रिया',
+  'In 3D': 'त्रि-आयाम',
   Work: 'कार्य',
   Furniture: 'फ़र्नीचर',
   Contact: 'संपर्क',
@@ -152,8 +153,8 @@ export function Header() {
           <TransitionLink href="/#top" className="shrink-0" aria-label={`${site.name}, home`}>
             <Logo light={light} />
           </TransitionLink>
-          <nav aria-label="Primary" className="hidden lg:block">
-            <ul className="flex items-center gap-9">
+          <nav aria-label="Primary" className="hidden xl:block">
+            <ul className="flex items-center gap-7">
               {nav.map((item) => {
                 const id = item.href.split('#')[1];
                 return (
@@ -179,7 +180,7 @@ export function Header() {
             <button
               ref={toggleRef}
               type="button"
-              className="relative grid h-11 w-11 place-items-center lg:hidden"
+              className="relative grid h-11 w-11 place-items-center xl:hidden"
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? 'Close menu' : 'Open menu'}
@@ -199,7 +200,7 @@ export function Header() {
         aria-modal="true"
         aria-label="Menu"
         data-theme="dark"
-        className="fixed inset-0 z-[79] flex-col overflow-y-auto bg-indigo-deep pt-24 text-ivory lg:hidden"
+        className="fixed inset-0 z-[79] flex-col overflow-y-auto bg-indigo-deep pt-24 text-ivory xl:hidden"
         style={{ display: 'none' }}
       >
         <Mandala className="pointer-events-none absolute -right-40 -bottom-40 h-[34rem] w-[34rem] text-brass/15" />

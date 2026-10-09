@@ -8,6 +8,7 @@ import { caneTexture, fabricTexture, woodTexture, type WoodSpecies } from './tex
  * seat, side and arched back panels, brass ferrules and a linen cushion.
  * Built entirely from code so the viewer needs no model download.
  * Dimensions are in metres; the chair faces +Z with its feet at y = 0.
+ * Parts carry `userData.label` for the exploded-view diagram.
  */
 
 export interface ChairMaterials {
@@ -83,9 +84,11 @@ export function createLoungeChair(mats: ChairMaterials) {
   for (const x of [-halfW, halfW]) {
     for (const z of [front, back]) {
       const leg = new THREE.Mesh(legGeo, mats.wood);
+      leg.userData.label = 'Turned sheesham legs';
       leg.position.set(x, 0, z);
       chair.add(leg);
       const ferrule = new THREE.Mesh(ferruleGeo, mats.brass);
+      ferrule.userData.label = 'Brass ferrules';
       ferrule.position.set(x, 0.0225, z);
       chair.add(ferrule);
     }
@@ -96,6 +99,7 @@ export function createLoungeChair(mats: ChairMaterials) {
     const arm = rail(0.7, 0.026, 0.074, mats.wood, 0.011);
     arm.rotation.y = Math.PI / 2;
     arm.position.set(x, armH + 0.013, 0.005);
+    arm.userData.label = 'Solid arm rests';
     chair.add(arm);
     const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.006, 20), mats.brass);
     cap.position.set(x, armH + 0.028, front);
@@ -122,16 +126,19 @@ export function createLoungeChair(mats: ChairMaterials) {
     // Cane side panel between seat rail and arm
     const sp = canePanel(front - back - 0.03, armH - seatH - 0.02, mats.cane);
     sp.rotation.y = Math.PI / 2;
+    sp.userData.label = 'Cane side panels';
     sp.position.set(x, (armH + seatH) / 2, (front + back) / 2);
     chair.add(sp);
   }
   const seat = canePanel(seatW - 0.03, front - back - 0.03, mats.cane);
   seat.rotation.x = -Math.PI / 2;
+  seat.userData.label = 'Hand-woven cane seat';
   seat.position.set(0, seatH - 0.004, (front + back) / 2);
   chair.add(seat);
 
   // Reclined arched back: a bent-wood tube framing an arched cane panel
   const backGroup = new THREE.Group();
+  backGroup.userData.label = 'Arched bent-wood back';
   const aHalf = 0.27;
   const spring = 0.28;
   const pts = archPoints(aHalf, spring, 40).map((p) => new THREE.Vector3(p.x, p.y, 0));
@@ -156,11 +163,13 @@ export function createLoungeChair(mats: ChairMaterials) {
   // Linen seat cushion and an indigo bolster
   const cushion = new THREE.Mesh(projectUV(new RoundedBoxGeometry(seatW - 0.04, 0.085, front - back - 0.05, 5, 0.035)), mats.cushion);
   cushion.position.set(0, seatH + 0.045, (front + back) / 2 + 0.02);
+  cushion.userData.label = 'Linen seat cushion';
   chair.add(cushion);
   const bolster = new THREE.Mesh(new THREE.CapsuleGeometry(0.07, 0.36, 10, 24), mats.bolster);
   bolster.rotation.z = Math.PI / 2;
   bolster.position.set(0, seatH + 0.15, back + 0.09);
   bolster.scale.set(1, 1, 0.82);
+  bolster.userData.label = 'Indigo bolster';
   chair.add(bolster);
 
   return shadowed(chair);
